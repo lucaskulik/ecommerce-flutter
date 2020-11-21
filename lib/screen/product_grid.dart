@@ -1,7 +1,10 @@
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/providers/product_provider.dart';
+import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/widgets/product/product_grid_item.dart';
+import 'package:ecommerce/widgets/product/search_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -23,7 +26,7 @@ class ProductGrid extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 7,
-                  child: Container(),
+                  child: SearchField(),
                 ),
               ],
             ),
@@ -38,8 +41,10 @@ class ProductGrid extends StatelessWidget {
               height: 20,
             ),
             Card(
-              child: Container(
-                height: 50,
+              clipBehavior: Clip.antiAlias,
+              child: Image.asset(
+                "assets/images/banner_01.png",
+                fit: BoxFit.fill,
               ),
             ),
             const SizedBox(

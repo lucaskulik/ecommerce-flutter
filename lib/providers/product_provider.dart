@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 class ProductProvider extends ChangeNotifier {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  String search;
 
   List<ProductModel> _allProducts = [];
+  List<ProductModel> _filteredProducts = [];
+  List<ProductModel> _products = [];
 
   ProductProvider() {
     loadAllProducts();
@@ -19,13 +22,34 @@ class ProductProvider extends ChangeNotifier {
       return product;
     }).toList();
     print("${_allProducts.length} Produtos Carregados");
+    updateList();
+  }
+
+  searchProducts(String search) {
+    this.search = search;
+    _filteredProducts = _allProducts
+        .where((product) =>
+            product.name.toLowerCase().contains(search.toLowerCase()))
+        .toList();
+    updateList();
+  }
+
+  clearSearch() {
+    this.search = null;
+    _filteredProducts = [];
+    updateList();
+  }
+
+  updateList() {
+    _products =
+        search != null && search.isNotEmpty ? _filteredProducts : _allProducts;
     notifyListeners();
   }
 
   CollectionReference get _firestore =>
       _firebaseFirestore.collection("products");
 
-  List<ProductModel> get products => [..._allProducts];
+  List<ProductModel> get products => _products;
 
-  int get count => _allProducts.length;
+  int get count => _products.length;
 }
