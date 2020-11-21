@@ -1,5 +1,6 @@
 import 'package:ecommerce/providers/user_provider.dart';
 import 'package:ecommerce/utils/constants.dart';
+import 'package:ecommerce/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,29 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldState,
       backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        title: Text("Login"),
+        centerTitle: true,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.REGISTER);
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 18,
+              ),
+              margin: EdgeInsets.only(
+                right: 10,
+              ),
+              child: Text(
+                "CRIAR CONTA",
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(20),

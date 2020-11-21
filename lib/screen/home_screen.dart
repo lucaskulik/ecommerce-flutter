@@ -1,4 +1,7 @@
+import 'package:ecommerce/screen/product_grid.dart';
+import 'package:ecommerce/widgets/user/user_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,20 +15,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
-          Container(
-            color: Colors.red,
-          ),
+          ProductGrid(),
           Container(
             color: Colors.blue,
           ),
-          Container(
-            color: Colors.yellow,
-          ),
+          UserPageView(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
