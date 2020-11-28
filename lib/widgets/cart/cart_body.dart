@@ -10,6 +10,19 @@ class CartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartProvider _cartProvider = Provider.of<CartProvider>(context);
+
+    if (_cartProvider.items.isEmpty) {
+      return Center(
+        child: Text(
+          "O carrinho está vazio",
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.grey[500],
+          ),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

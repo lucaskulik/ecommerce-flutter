@@ -16,6 +16,8 @@ class CartProvider extends ChangeNotifier {
   List<CartItemModel> items = [];
   AddressModel addressModel = null;
 
+  bool _loading = false;
+
   CartProvider() {
     _loadItems();
   }
@@ -81,6 +83,7 @@ class CartProvider extends ChangeNotifier {
   }
 
   Future<void> getAddressByCEP(String cep) async {
+    setLoading(true);
     cep = cep.replaceAll(new RegExp(r"[^\s\w]"), "");
 
     print("CEP $cep");
@@ -93,13 +96,15 @@ class CartProvider extends ChangeNotifier {
         addressModel = AddressModel.fromViaCEP(viaCepDTO);
       } else {
         addressModel = new AddressModel();
+        addressModel.zipCode = cep;
       }
 
       print(addressModel.city);
-
-      notifyListeners();
+      // notifyListeners();
     } catch (e) {
       return Future.error(e);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -122,4 +127,11 @@ class CartProvider extends ChangeNotifier {
           );
     }
   }
+
+  setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
+  bool get loading => _loading;
 }

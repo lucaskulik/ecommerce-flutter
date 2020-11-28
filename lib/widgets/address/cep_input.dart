@@ -11,7 +11,8 @@ class CepInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartProvider _cartProvider = Provider.of<CartProvider>(context);
 
-    if (_cartProvider.addressModel != null) {
+    if (_cartProvider.addressModel != null &&
+        _cartProvider.addressModel.zipCode.isNotEmpty) {
       return Card(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -39,28 +40,42 @@ class CepInput extends StatelessWidget {
     return Card(
       child: Padding(
         padding: EdgeInsets.all(15),
-        child: TextFormField(
-          controller: _cepController,
-          decoration: InputDecoration(
-            hintText: "00.000-000",
-            labelText: "CEP",
-            suffix: IconButton(
-              onPressed: () {
-                _cartProvider.getAddressByCEP(_cepController.value.text);
-              },
-              icon: Icon(
-                Icons.search,
+        child: Column(
+          children: [
+            TextFormField(
+              enabled: !_cartProvider.loading,
+              controller: _cepController,
+              decoration: InputDecoration(
+                hintText: "00.000-000",
+                labelText: "CEP",
+                suffix: IconButton(
+                  onPressed: () {
+                    _cartProvider.getAddressByCEP(_cepController.value.text);
+                  },
+                  icon: Icon(
+                    Icons.search,
+                  ),
+                ),
+              ),
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CepInputFormatter()
+              ],
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: false,
+                signed: false,
               ),
             ),
-          ),
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            CepInputFormatter()
+            _cartProvider.loading
+                ? Container(
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.transparent,
+                      valueColor: AlwaysStoppedAnimation(
+                          Theme.of(context).primaryColor),
+                    ),
+                  )
+                : Container(),
           ],
-          keyboardType: TextInputType.numberWithOptions(
-            decimal: false,
-            signed: false,
-          ),
         ),
       ),
     );
