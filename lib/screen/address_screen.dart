@@ -1,7 +1,7 @@
-import 'package:ecommerce/widgets/cart/cart_body.dart';
+import 'package:ecommerce/widgets/address/cep_input.dart';
 import 'package:flutter/material.dart';
 
-class CartScreen extends StatelessWidget {
+class AddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,13 @@ class CartScreen extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.grey[500]),
       ),
-      body: CartBody(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CepInput(),
+          ],
+        ),
+      ),
     );
   }
 }

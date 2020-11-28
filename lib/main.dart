@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/providers/cart_provider.dart';
 import 'package:ecommerce/providers/product_provider.dart';
 import 'package:ecommerce/providers/user_provider.dart';
+import 'package:ecommerce/screen/address_screen.dart';
 import 'package:ecommerce/screen/cart_screen.dart';
 import 'package:ecommerce/screen/home_screen.dart';
 import 'package:ecommerce/screen/login_screen.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
           Routes.REGISTER: (_) => RegisterScreen(),
           Routes.PRODUCT: (_) => ProductDetailScreen(),
           Routes.CART: (_) => CartScreen(),
+          Routes.ADDRESS: (_) => AddressScreen(),
         },
       ),
     );

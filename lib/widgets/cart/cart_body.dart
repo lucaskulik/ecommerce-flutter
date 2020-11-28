@@ -3,6 +3,7 @@ import 'package:ecommerce/utils/price_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/routes.dart';
 import 'cart_item.dart';
 
 class CartBody extends StatelessWidget {
@@ -12,6 +13,7 @@ class CartBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           /**
            *  Preço Total
@@ -47,7 +49,33 @@ class CartBody extends StatelessWidget {
             itemBuilder: (_, index) {
               return CartItem(_cartProvider.items[index]);
             },
-          )
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          /**
+           *  Botão de Endereço
+           */
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(Routes.ADDRESS);
+            },
+            elevation: 0,
+            textColor: Colors.white,
+            color: Colors.lightBlueAccent,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 15,
+              ),
+              child: Text(
+                "CONTINUAR PARA ENDEREÇO",
+                softWrap: false,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.clip,
+                maxLines: 2,
+              ),
+            ),
+          ),
         ],
       ),
     );

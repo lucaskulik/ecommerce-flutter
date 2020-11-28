@@ -4,4 +4,5 @@ class Routes {
   static final String REGISTER = "/register";
   static final String PRODUCT = "/product";
   static final String CART = "/cart";
+  static final String ADDRESS = "/address";
 }

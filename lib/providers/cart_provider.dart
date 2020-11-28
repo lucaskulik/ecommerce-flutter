@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/dtos/viacep_dto.dart';
+import 'package:ecommerce/models/address_model.dart';
 import 'package:ecommerce/models/cart_item_model.dart';
+import 'package:ecommerce/services/viacep_service.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../models/product_model.dart';
@@ -7,9 +10,11 @@ import '../models/user_model.dart';
 import 'user_provider.dart';
 
 class CartProvider extends ChangeNotifier {
+  ViaCepService _viaCepService = new ViaCepService();
   UserModel user;
   num totalPrice = 0.0;
   List<CartItemModel> items = [];
+  AddressModel addressModel = null;
 
   CartProvider() {
     _loadItems();
@@ -72,6 +77,34 @@ class CartProvider extends ChangeNotifier {
       }
     }
 
+    notifyListeners();
+  }
+
+  Future<void> getAddressByCEP(String cep) async {
+    cep = cep.replaceAll(new RegExp(r"[^\s\w]"), "");
+
+    print("CEP $cep");
+
+    try {
+      final ViaCepDTO viaCepDTO =
+          await this._viaCepService.getAddressByCEP(cep);
+
+      if (viaCepDTO != null) {
+        addressModel = AddressModel.fromViaCEP(viaCepDTO);
+      } else {
+        addressModel = new AddressModel();
+      }
+
+      print(addressModel.city);
+
+      notifyListeners();
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  cleanAddress() {
+    addressModel = null;
     notifyListeners();
   }
 
