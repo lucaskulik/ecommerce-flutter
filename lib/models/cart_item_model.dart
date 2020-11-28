@@ -24,6 +24,7 @@ class CartItemModel extends ChangeNotifier {
   CartItemModel.fromProduct(ProductModel productModel) {
     productId = productModel.id;
     quantity = 1;
+    this.product = productModel;
   }
 
   Map<String, dynamic> toCartItemMap() {
