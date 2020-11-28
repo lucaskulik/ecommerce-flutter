@@ -1,16 +1,22 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/utils/constants.dart';
+import 'package:ecommerce/utils/price_utils.dart';
+import 'package:ecommerce/widgets/cart/cart_icon.dart';
+import 'package:ecommerce/widgets/product/product_action_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   ProductModel product;
+  GlobalKey<ScaffoldState> _scaffoldState = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     product = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      key: _scaffoldState,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Product",
@@ -18,6 +24,7 @@ class ProductDetailScreen extends StatelessWidget {
             color: Colors.grey[500],
           ),
         ),
+        actions: [CartIcon()],
         brightness: Brightness.light,
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -54,6 +61,9 @@ class ProductDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 Text(
                   product.name,
                   style: TextStyle(
@@ -61,6 +71,17 @@ class ProductDetailScreen extends StatelessWidget {
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "R\$ ${PriceUtils.convertPriceBRL(product.price)}",
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
                 const SizedBox(
                   height: 20,
@@ -89,24 +110,7 @@ class ProductDetailScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                RaisedButton(
-                  onPressed: () {},
-                  elevation: 0,
-                  textColor: Colors.white,
-                  color: Colors.greenAccent,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 15,
-                    ),
-                    child: Text(
-                      "ADICIONAR AO CARRINHO",
-                      softWrap: false,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.clip,
-                      maxLines: 2,
-                    ),
-                  ),
-                ),
+                ProductActionButton(product, _scaffoldState),
                 const SizedBox(
                   height: 20,
                 ),

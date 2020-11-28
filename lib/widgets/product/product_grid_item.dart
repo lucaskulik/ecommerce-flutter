@@ -1,5 +1,6 @@
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/utils/constants.dart';
+import 'package:ecommerce/utils/price_utils.dart';
 import 'package:ecommerce/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,7 @@ class ProductGridItem extends StatelessWidget {
                     Container(
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        "R\$ ${product.price}",
+                        "R\$ ${PriceUtils.convertPriceBRL(product.price)}",
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 18,

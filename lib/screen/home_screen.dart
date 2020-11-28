@@ -1,4 +1,5 @@
 import 'package:ecommerce/screen/product_grid.dart';
+import 'package:ecommerce/widgets/cart/cart_body.dart';
 import 'package:ecommerce/widgets/user/user_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,9 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         children: [
           ProductGrid(),
-          Container(
-            color: Colors.blue,
-          ),
+          CartBody(),
           UserPageView(),
         ],
       ),

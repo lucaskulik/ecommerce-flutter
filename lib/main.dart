@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/providers/cart_provider.dart';
 import 'package:ecommerce/providers/product_provider.dart';
 import 'package:ecommerce/providers/user_provider.dart';
+import 'package:ecommerce/screen/cart_screen.dart';
 import 'package:ecommerce/screen/home_screen.dart';
 import 'package:ecommerce/screen/login_screen.dart';
 import 'package:ecommerce/screen/product_details.dart';
@@ -11,6 +13,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'providers/user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +44,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => new ProductProvider(),
           lazy: false,
-        )
+        ),
+        ChangeNotifierProxyProvider<UserProvider, CartProvider>(
+          create: (_) => new CartProvider(),
+          update: (_, _userProvider, _cartProvider) =>
+              _cartProvider..updateUser(_userProvider),
+          lazy: false,
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -54,7 +64,8 @@ class MyApp extends StatelessWidget {
           Routes.HOME: (_) => HomeScreen(),
           Routes.LOGIN: (_) => LoginScreen(),
           Routes.REGISTER: (_) => RegisterScreen(),
-          Routes.PRODUCT: (_) => ProductDetailScreen()
+          Routes.PRODUCT: (_) => ProductDetailScreen(),
+          Routes.CART: (_) => CartScreen(),
         },
       ),
     );
