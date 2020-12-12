@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/dtos/viacep_dto.dart';
 import 'package:ecommerce/models/address_model.dart';
 import 'package:ecommerce/models/cart_item_model.dart';
+import 'package:ecommerce/models/order_model.dart';
 import 'package:ecommerce/services/viacep_service.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,6 +11,8 @@ import '../models/user_model.dart';
 import 'user_provider.dart';
 
 class CartProvider extends ChangeNotifier {
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   ViaCepService _viaCepService = new ViaCepService();
   UserModel user;
   num totalPrice = 0.0;

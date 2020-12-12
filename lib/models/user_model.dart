@@ -29,4 +29,6 @@ class UserModel {
       FirebaseFirestore.instance.doc("users/$id");
 
   CollectionReference get cartReference => _userReference.collection("cart");
+
+  CollectionReference get orderReference => _userReference.collection("orders");
 }

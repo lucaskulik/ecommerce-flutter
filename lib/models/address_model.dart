@@ -18,4 +18,6 @@ class AddressModel {
     city = viaCepDTO.localidade;
     state = viaCepDTO.uf;
   }
+
+  String toString() => "${this.street}, ${this.number} - ${this.zipCode}";
 }

@@ -1,4 +1,5 @@
 import 'package:ecommerce/providers/cart_provider.dart';
+import 'package:ecommerce/providers/order_provider.dart';
 import 'package:ecommerce/providers/user_provider.dart';
 import 'package:ecommerce/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class CheckoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserProvider _userProvider = Provider.of<UserProvider>(context);
     final CartProvider _cartProvider = Provider.of<CartProvider>(context);
+    final OrderProvider _orderProvider = Provider.of<OrderProvider>(context);
 
     if (_userProvider.isLogado) {
       return Padding(
@@ -54,7 +56,7 @@ class CheckoutView extends StatelessWidget {
                         style: TextStyle(fontSize: 16),
                       ),
                       Text(
-                        "${_cartProvider.addressModel.street}, ${_cartProvider.addressModel.number} - ${_cartProvider.addressModel.zipCode}",
+                        _cartProvider.addressModel.toString(),
                         style: TextStyle(
                           fontSize: 16,
                           color: Theme.of(context).primaryColor,
@@ -67,6 +69,7 @@ class CheckoutView extends StatelessWidget {
               CartContent(),
               RaisedButton(
                 onPressed: () {
+                  _orderProvider.completeOrder(_cartProvider);
                   print('finalizar');
                 },
                 elevation: 0,
