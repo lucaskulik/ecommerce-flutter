@@ -70,7 +70,7 @@ class CheckoutView extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   _orderProvider.completeOrder(_cartProvider);
-                  print('finalizar');
+                  Navigator.of(context).pushNamed(Routes.HOME);
                 },
                 elevation: 0,
                 textColor: Colors.white,

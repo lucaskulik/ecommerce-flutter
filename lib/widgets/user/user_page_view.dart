@@ -1,6 +1,7 @@
 import 'package:ecommerce/providers/user_provider.dart';
 import 'package:ecommerce/utils/routes.dart';
 import 'package:ecommerce/widgets/user/user_menu_item.dart';
+import 'package:ecommerce/widgets/user/user_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,20 +47,12 @@ class UserPageView extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: Container(
-                color: Colors.grey[200],
-                child: Column(
-                  children: [
-                    UserMenuItem(
-                      onPressed: _userProvider.signOut,
-                      label: "Sair",
-                      icon: Icons.exit_to_app,
-                    ),
-                  ],
-                ),
-              ),
+            UserMenuItem(
+              onPressed: _userProvider.signOut,
+              label: "Sair",
+              icon: Icons.exit_to_app,
             ),
+            OrderView(),
           ],
         ),
       );
