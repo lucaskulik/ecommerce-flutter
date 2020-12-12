@@ -1,10 +1,9 @@
 import 'package:ecommerce/providers/cart_provider.dart';
-import 'package:ecommerce/utils/price_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/routes.dart';
-import 'cart_item.dart';
+import 'cart_content.dart';
 
 class CartBody extends StatelessWidget {
   @override
@@ -31,41 +30,7 @@ class CartBody extends StatelessWidget {
           /**
            *  Preço Total
            */
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "TOTAL",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "R\$ ${PriceUtils.convertPriceBRL(_cartProvider.totalPrice)}",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          /**
-           *  Items
-           */
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: _cartProvider.items.length,
-            itemBuilder: (_, index) {
-              return CartItem(_cartProvider.items[index]);
-            },
-          ),
-          const SizedBox(
-            height: 30,
-          ),
+          CartContent(),
           /**
            *  Botão de Endereço
            */
@@ -77,9 +42,6 @@ class CartBody extends StatelessWidget {
             textColor: Colors.white,
             color: Colors.lightBlueAccent,
             child: Container(
-              padding: EdgeInsets.symmetric(
-                vertical: 15,
-              ),
               child: Text(
                 "CONTINUAR PARA ENDEREÇO",
                 softWrap: false,
